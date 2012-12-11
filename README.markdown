@@ -1,5 +1,9 @@
 # NGINX Module
 
+We've just added a few options.
+
+Based on:
+
 James Fryman <jamison@puppetlabs.com>
 
 This module manages NGINX from within Puppet.
@@ -33,7 +37,7 @@ Add a Proxy Server(s)
      nginx::resource::upstream { 'puppet_rack_app':
        ensure  => present,
        members => [
-         'localhost:3000', 
+         'localhost:3000',
          'localhost:3001',
          'localhost:3002',
        ],
@@ -43,5 +47,5 @@ Add a Proxy Server(s)
        ensure   => present,
        proxy  => 'http://puppet_rack_app',
      }
-   } 
+   }
 </pre>
