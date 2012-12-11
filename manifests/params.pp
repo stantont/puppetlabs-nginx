@@ -26,6 +26,7 @@ class nginx::params {
   $nx_keepalive_timeout  = 65
   $nx_tcp_nodelay        = on
   $nx_gzip               = on
+  $nx_use_epoll          = on
 
   $nx_proxy_redirect          = off
   $nx_proxy_set_header        = [
@@ -41,6 +42,7 @@ class nginx::params {
   $nx_proxy_send_timeout      = '90'
   $nx_proxy_read_timeout      = '90'
   $nx_proxy_buffers           = '32 4k'
+  $nx_proxy_next_upstream     = 'error'
 
   $nx_logdir = $::kernel ? {
     /(?i-mx:linux)/ => '/var/log/nginx',
