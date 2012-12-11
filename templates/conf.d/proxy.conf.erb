@@ -8,4 +8,4 @@ proxy_buffers           <%= scope.lookupvar('nginx::params::nx_proxy_buffers') %
 <% proxy_set_header.each do |header| %>
 proxy_set_header        <%= header %>;
 <% end %>
-proxy_next_upstream <% scope.lookupvar('nginx::params::nx_proxy_next_upstream') || 'error' %>;
+proxy_next_upstream <%= scope.lookupvar('nginx::params::nx_proxy_next_upstream') || 'error' %>;
