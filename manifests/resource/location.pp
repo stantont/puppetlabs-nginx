@@ -16,7 +16,7 @@
 #   [*location_alias*]       - Path to be used as basis for serving requests for this location
 #   [*stub_status*]          - If true it will point configure module stub_status to provide nginx stats on location
 #   [*location_cfg_prepend*] - It expects a hash with custom directives to put before anything else inside location
-#   [*location_cfg_append*]  - It expects a hash with custom directives to put after everything else inside location   
+#   [*location_cfg_append*]  - It expects a hash with custom directives to put after everything else inside location
 #   [*try_files*]            - An array of file locations to try
 #   [*option*]               - Reserved for future use
 #
@@ -31,7 +31,7 @@
 #    location => '/bob',
 #    vhost    => 'test2.local',
 #  }
-#  
+#
 #  Custom config example to limit location on localhost,
 #  create a hash with any extra custom config you want.
 #  $my_config = {
@@ -62,6 +62,7 @@ define nginx::resource::location(
   $location_cfg_prepend = undef,
   $location_cfg_append  = undef,
   $try_files            = undef,
+  $custom_template      = undef,
   $location
 ) {
   File {
@@ -79,7 +80,11 @@ define nginx::resource::location(
 
   # Use proxy template if $proxy is defined, otherwise use directory template.
   if ($proxy != undef) {
-    $content_real = template('nginx/vhost/vhost_location_proxy.erb')
+    if ($custom_template != undef) {
+        $content_real = template($custom_template)
+    } else {
+        $content_real = template('nginx/vhost/vhost_location_proxy.erb')
+    }
   } elsif ($location_alias != undef) {
     $content_real = template('nginx/vhost/vhost_location_alias.erb')
   } elsif ($stub_status != undef) {

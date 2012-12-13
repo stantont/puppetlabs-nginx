@@ -60,7 +60,8 @@ define nginx::resource::vhost(
   $rewrite_www_to_non_www = false,
   $location_cfg_prepend   = undef,
   $location_cfg_append    = undef,
-  $try_files              = undef
+  $try_files              = undef,
+  $custom_template        = undef
 ) {
 
   File {
@@ -94,7 +95,7 @@ define nginx::resource::vhost(
       notify => Class['nginx::service'],
     }
   }
-  
+
   if ($ssl == 'true') and ($ssl_port == $listen_port) {
     $ssl_only = 'true'
   }
@@ -110,6 +111,7 @@ define nginx::resource::vhost(
     proxy_read_timeout   => $proxy_read_timeout,
     try_files            => $try_files,
     www_root             => $www_root,
+    custom_template      => $custom_template,
     notify               => Class['nginx::service'],
   }
 
