@@ -113,6 +113,7 @@ define nginx::resource::vhost(
     www_root             => $www_root,
     custom_template      => $custom_template,
     notify               => Class['nginx::service'],
+    index_files          => $index_files,
   }
 
   # Support location_cfg_prepend and location_cfg_append on default location created by vhost
