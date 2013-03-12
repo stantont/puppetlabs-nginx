@@ -16,10 +16,16 @@
 class nginx::package::redhat {
   $redhat_packages = ['nginx', 'GeoIP', 'gd', 'libXpm', 'libxslt']
 
-  if downcase($::operatingsystem) == "redhat" {
-    $os_type = "rhel"
-  } else {
-    $os_type = downcase($::operatingsystem)
+  case ($::operatingsystem) {
+    'redhat': {
+      $os_type = 'rhel'
+    }
+    'centos','scientific','oel': {
+      $os_type = 'centos'
+    }
+    default: {
+      $os_type = downcase($::operatingsystem)
+    }
   }
 
   if $::lsbmajdistrelease == undef {
