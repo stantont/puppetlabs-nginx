@@ -16,11 +16,11 @@
 class nginx::package::redhat {
   $redhat_packages = ['nginx', 'GeoIP', 'gd', 'libXpm', 'libxslt']
 
-  case ($::operatingsystem) {
+  case (downcase($::operatingsystem)) {
     'redhat': {
       $os_type = 'rhel'
     }
-    'centos','scientific','oel': {
+    'centos','scientific','oel', 'amazon': {
       $os_type = 'centos'
     }
     default: {
